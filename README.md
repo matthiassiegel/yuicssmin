@@ -16,14 +16,12 @@ Or include it in your project's Gemfile:
 
     require 'yuicssmin'
     
-    Yuicssmin.compress(File.read("path/to/styles.css"))
-    # => minified CSS
+    Yuicssmin.compress(File.read("path/to/styles.css"))         # => minified CSS
     
-		# Or alternatively
+    # Alternatively use instance method...
     
     compressor = Yuicssmin.new
-		compressor.compress(File.read("path/to/styles.css"))
-    # => minified CSS
+    compressor.compress(File.read("path/to/styles.css"))        # => minified CSS
 
 Files or strings are acceptable as input.
 
@@ -34,7 +32,7 @@ You can pass in a second argument to control the maximum output line length (def
 Note: in most cases line length will only be approximated.
 
 ## Rails asset pipeline
-Rails 3.1 integrated [Sprockets](https://github.com/sstephenson/sprockets) to provide asset packaging and minimising out of the box. For CSS compression it relies on the yui-compressor gem which requires Java. To use YUICSSMIN instead, edit your config/application.rb file:
+Rails 3.1 integrated [Sprockets](https://github.com/sstephenson/sprockets) to provide asset packaging and minimising out of the box. For CSS compression it relies on the [yui-compressor gem](https://github.com/sstephenson/ruby-yui-compressor) which requires Java. To use YUICSSMIN instead, edit your config/application.rb file:
 
     config.assets.css_compressor = Yuicssmin.new
 
