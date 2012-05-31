@@ -26,7 +26,7 @@ class Yuicssmin
   # @param [String, #read] String or IO-like object that supports #read
   # @param [Integer] Maximum line length
   # @return [String] Compressed CSS
-  def self.compress(source, length = 10000)
+  def self.compress(source, length = 5000)
     self.new.compress(source, length)
   end
   
@@ -37,7 +37,7 @@ class Yuicssmin
   # @param [String, #read] String or IO-like object that supports #read
   # @param [Integer] Maximum line length
   # @return [String] Compressed CSS
-  def compress(source = '', length = 10000)
+  def compress(source = '', length = 5000)
     source = source.respond_to?(:read) ? source.read : source.to_s
     
     js = []
