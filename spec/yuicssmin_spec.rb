@@ -42,14 +42,14 @@ describe "Yuicssmin" do
 
     it "handles files as input format" do
       lambda {
-        Yuicssmin.new.compress(File.open(File.expand_path("../sample.css", __FILE__), "r:UTF-8")).should_not be_empty
+        Yuicssmin.compress(File.open(File.expand_path("../sample.css", __FILE__), "r:UTF-8")).should_not be_empty
       }.should_not raise_error
     end
     
     it "works as both class and class instance" do
       lambda {
         Yuicssmin.compress(File.open(File.expand_path("../sample.css", __FILE__), "r:UTF-8").read).should_not be_empty
-        Yuicssmin.new.compress(File.open(File.expand_path("../sample.css", __FILE__), "r:UTF-8")).should_not be_empty
+        Yuicssmin.new.compress(File.open(File.expand_path("../sample.css", __FILE__), "r:UTF-8").read).should_not be_empty
       }.should_not raise_error
     end
     
@@ -145,7 +145,7 @@ describe "Yuicssmin" do
       minified.should eq('.classname{margin:.6px .333pt 1.2em 8.8cm}')
     end
   
-    it "simplifies colors values" do
+    it "simplifies color values but preserves filter properties, RGBa values and ID strings" do
       source = <<-EOS
         .color-me {
             color: rgb(123, 123, 123);
@@ -157,13 +157,13 @@ describe "Yuicssmin" do
       minified.should eq('.color-me{color:#7b7b7b;border-color:#fed;background:none repeat scroll 0 0 #f00}')
 
       source = <<-EOS
-        .cantouch {
+        #AABBCC {
             color: rgba(1, 2, 3, 4);
             filter: chroma(color="#FFFFFF");
         }
       EOS
       minified = Yuicssmin.compress(source)
-      minified.should eq('.cantouch{color:rgba(1,2,3,4);filter:chroma(color="#FFFFFF")}')
+      minified.should eq('#AABBCC{color:rgba(1,2,3,4);filter:chroma(color="#FFFFFF")}')
     end
   
     it "only keeps the first charset declaration" do

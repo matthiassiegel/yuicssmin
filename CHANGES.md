@@ -1,5 +1,7 @@
-### 1.0.1-wip
+### 1.0.1
 
+* Gemspec cleanup
+* Tests updated
 * Minor documentation tweaks
 * Changelog added
 

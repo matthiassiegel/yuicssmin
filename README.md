@@ -36,6 +36,9 @@ Rails 3.1 integrated [Sprockets](https://github.com/sstephenson/sprockets) to pr
 
     config.assets.css_compressor = Yuicssmin.new
 
+## Changelog
+See [CHANGES](https://github.com/matthiassiegel/yuicssmin/blob/master/CHANGES.md).
+
 ## Credits
 YUICSSMIN gem was inspired by Ville Lautanala's [Uglifier](https://github.com/lautis/uglifier) gem, released under MIT license.
 
