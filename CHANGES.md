@@ -1,3 +1,7 @@
+### 1.0.2
+
+* More tests added
+
 ### 1.0.1
 
 * Gemspec cleanup
