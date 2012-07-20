@@ -8,12 +8,13 @@ Gem::Specification.new do |s|
   s.author      = "Matthias Siegel"
   s.email       = "matthias.siegel@gmail.com"
   s.homepage    = "https://github.com/matthiassiegel/yuicssmin"
-  s.summary     = "Ruby wrapper for the Javascript port of YUI's CSS compressor"
+  s.summary     = "Ruby wrapper for the Javascript port of YUI's CSS compressor."
   s.description = <<-EOF
     The YUICSSMIN gem provides CSS compression using YUI compressor from Yahoo. Unlike other gems it doesn't use the Java applet YUI compressor but instead uses the Javascript port via ExecJS.
   EOF
   
   s.extra_rdoc_files = [
+    "CHANGES.md",
     "LICENSE.md",
     "README.md"
   ]
@@ -25,7 +26,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- spec/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec", "~> 2.7"
   
   s.add_runtime_dependency "execjs", ">= 0.3.0"
   s.add_runtime_dependency "multi_json", ">= 1.0.2"

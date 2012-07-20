@@ -69,8 +69,7 @@ describe "Yuicssmin" do
             font-weight: normal;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.classname{font-weight:normal}')
+      Yuicssmin.compress(source).should eq('.classname{font-weight:normal}')
     end
   
     it "preserves special comments" do
@@ -83,13 +82,12 @@ describe "Yuicssmin" do
             font-weight: normal;
         }
       EOS
-      minified = Yuicssmin.compress(source)
       result = <<-EOS
 /*!
           (c) Very Important Comment
         */.classname{font-weight:normal}
       EOS
-      (minified + "\n").should eq(result)
+      (Yuicssmin.compress(source) + "\n").should eq(result)
     end
 
     it "removes last semi-colon in a block" do
@@ -99,8 +97,7 @@ describe "Yuicssmin" do
             border-bottom: 2px;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.classname{border-top:1px;border-bottom:2px}')
+      Yuicssmin.compress(source).should eq('.classname{border-top:1px;border-bottom:2px}')
     end
   
     it "removes extra semi-colons" do
@@ -110,8 +107,7 @@ describe "Yuicssmin" do
             border-bottom: 2px;;;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.classname{border-top:1px;border-bottom:2px}')
+      Yuicssmin.compress(source).should eq('.classname{border-top:1px;border-bottom:2px}')
     end
   
     it "removes empty declarations" do
@@ -119,8 +115,7 @@ describe "Yuicssmin" do
         .empty { ;}
         .nonempty {border: 0;}
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.nonempty{border:0}')
+      Yuicssmin.compress(source).should eq('.nonempty{border:0}')
     end
   
     it "simplifies zero values" do
@@ -131,8 +126,7 @@ describe "Yuicssmin" do
             padding: 0in 0cm 0mm 0pc
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('a{margin:0;background-position:0 0;padding:0}')
+      Yuicssmin.compress(source).should eq('a{margin:0;background-position:0 0;padding:0}')
     end
   
     it "removes leading zeros from floats" do
@@ -141,8 +135,7 @@ describe "Yuicssmin" do
             margin: 0.6px 0.333pt 1.2em 8.8cm;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.classname{margin:.6px .333pt 1.2em 8.8cm}')
+      Yuicssmin.compress(source).should eq('.classname{margin:.6px .333pt 1.2em 8.8cm}')
     end
   
     it "simplifies color values but preserves filter properties, RGBa values and ID strings" do
@@ -153,8 +146,7 @@ describe "Yuicssmin" do
             background: none repeat scroll 0 0 rgb(255, 0,0);
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.color-me{color:#7b7b7b;border-color:#fed;background:none repeat scroll 0 0 #f00}')
+      Yuicssmin.compress(source).should eq('.color-me{color:#7b7b7b;border-color:#fed;background:none repeat scroll 0 0 #f00}')
 
       source = <<-EOS
         #AABBCC {
@@ -162,8 +154,7 @@ describe "Yuicssmin" do
             filter: chroma(color="#FFFFFF");
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('#AABBCC{color:rgba(1,2,3,4);filter:chroma(color="#FFFFFF")}')
+      Yuicssmin.compress(source).should eq('#AABBCC{color:rgba(1,2,3,4);filter:chroma(color="#FFFFFF")}')
     end
   
     it "only keeps the first charset declaration" do
@@ -179,8 +170,7 @@ describe "Yuicssmin" do
             border-width: 10px;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('@charset "utf-8";#foo{border-width:1px}#bar{border-width:10px}')
+      Yuicssmin.compress(source).should eq('@charset "utf-8";#foo{border-width:1px}#bar{border-width:10px}')
     end
   
     it "simplifies the IE opacity filter syntax" do
@@ -190,8 +180,7 @@ describe "Yuicssmin" do
             filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);       /* IE < 8 */
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.classname{-ms-filter:"alpha(opacity=80)";filter:alpha(opacity=80)}')
+      Yuicssmin.compress(source).should eq('.classname{-ms-filter:"alpha(opacity=80)";filter:alpha(opacity=80)}')
     end
   
     it "replaces 'none' values with 0 where allowed" do
@@ -202,8 +191,7 @@ describe "Yuicssmin" do
             outline: none;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('.classname{border:0;background:0;outline:0}')
+      Yuicssmin.compress(source).should eq('.classname{border:0;background:0;outline:0}')
     end
   
     it "tolerates underscore/star hacks" do
@@ -214,8 +202,7 @@ describe "Yuicssmin" do
             _width: 3px;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('#element{width:1px;*width:2px;_width:3px}')
+      Yuicssmin.compress(source).should eq('#element{width:1px;*width:2px;_width:3px}')
     end
   
     it "tolerates child selector hacks" do
@@ -224,8 +211,7 @@ describe "Yuicssmin" do
             color: blue;
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('html>/**/body p{color:blue}')
+      Yuicssmin.compress(source).should eq('html>/**/body p{color:blue}')
     end
   
     it "tolerates IE5/Mac hacks" do
@@ -236,8 +222,7 @@ describe "Yuicssmin" do
         }
         /* Stop ignoring in IE mac */
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('/*\*/.selector{color:khaki}/**/')
+      Yuicssmin.compress(source).should eq('/*\*/.selector{color:khaki}/**/')
     end
   
     it "tolerates box model hacks" do
@@ -252,8 +237,19 @@ describe "Yuicssmin" do
             width: 200px; /* others */
         }
       EOS
-      minified = Yuicssmin.compress(source)
-      minified.should eq('#elem{width:100px;voice-family:"\"}\"";voice-family:inherit;width:200px}html>body #elem{width:200px}')
+      Yuicssmin.compress(source).should eq('#elem{width:100px;voice-family:"\"}\"";voice-family:inherit;width:200px}html>body #elem{width:200px}')
+    end
+    
+    it "should pass all the original tests included in the YUI compressor package" do
+      puts "Now running original YUI compressor test files:"
+      
+      files = Dir.glob(File.join(File.dirname(__FILE__), 'tests', '*.css'))
+      
+      for file in files do
+        print "  -- testing #{file} ..."
+        Yuicssmin.compress(File.read(file)).chomp.strip.should eq(File.read(file + '.min').chomp.strip)
+        print "successful\n"
+      end
     end
     
   end

@@ -1,4 +1,5 @@
-# YUICSSMIN
+# YUICSSMIN [![Build Status](https://secure.travis-ci.org/matthiassiegel/yuicssmin.png)](http://travis-ci.org/matthiassiegel/yuicssmin)
+
 Ruby wrapper for the Javascript port of YUI's CSS compressor.
 
 The YUICSSMIN gem provides CSS compression using YUI compressor from Yahoo. Unlike other gems it doesn't use the Java applet YUI compressor but instead uses the Javascript port via ExecJS. 
@@ -35,6 +36,9 @@ Note: in most cases line length will only be approximated.
 Rails 3.1 integrated [Sprockets](https://github.com/sstephenson/sprockets) to provide asset packaging and minimising out of the box. For CSS compression it relies on the [yui-compressor gem](https://github.com/sstephenson/ruby-yui-compressor) which requires Java. To use YUICSSMIN instead, edit your config/application.rb file:
 
     config.assets.css_compressor = Yuicssmin.new
+
+## Compatibility
+Tested with Ruby 1.9.2, 1.9.3, jruby-19mode, rbx-19mode
 
 ## Changelog
 See [CHANGES](https://github.com/matthiassiegel/yuicssmin/blob/master/CHANGES.md).
